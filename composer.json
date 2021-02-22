@@ -15,7 +15,8 @@
         "symfony/yaml": "5.2.*"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "*"
+        "squizlabs/php_codesniffer": "*",
+        "symfony/maker-bundle": "^1.29"
     },
     "config": {
         "optimize-autoloader": true,
