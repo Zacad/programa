@@ -4,10 +4,11 @@ namespace App\Application\CommandHandler;
 
 use App\Application\Command\SomePersonCommand;
 use App\Domain\Email;
+use App\Domain\EmailFactory;
 
 class SomePersonCommandHandler
 {
-    public function __construct()
+    public function __construct(private EmailFactory $emailFactory)
     {
     }
 
@@ -15,7 +16,7 @@ class SomePersonCommandHandler
     {
         // TODO: Implement execute() method.
 
-        $email = new Email($command->getEmail());
+        $email = $this->emailFactory->createFromString($command->getEmail());
         // create Person domain entity do its job
     }
 }
