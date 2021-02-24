@@ -14,39 +14,43 @@ class ShopProductDoctrineRepository extends ServiceEntityRepository implements S
         parent::__construct($registry, ShopProduct::class);
     }
 
-    // /**
-    //  * @return Product[] Returns an array of Product objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Product
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
     public function save(ShopProduct $shopProduct): void
     {
         // TODO: Implement save() method.
         $entityManager = $this->getEntityManager();
         $entityManager->persist($shopProduct);
         $entityManager->flush();
+    }
+
+    public function countAvailableProducts(): int
+    {
+        $query = $this->getEntityManager()->createQuery('
+            select count(q.id)
+            from App\Domain\ShopProduct q
+            where q.availability = true');
+
+        return $query->getSingleScalarResult();
+    }
+
+    public function findUnavailableProducts(): iterable
+    {
+        $query = $this->getEntityManager()->createQuery('
+            select q
+            from App\Domain\ShopProduct q
+            where q.availability = false');
+
+        return $query->getResult();
+    }
+
+    public function findProductsWithNameLike(string $phrase): iterable
+    {
+
+        $query = $this->getEntityManager()->createQuery('
+            select q
+            from App\Domain\ShopProduct q
+            where q.name like :phrase')
+            ->setParameter('phrase', \sprintf('%%%s%%',$phrase));
+
+        return $query->getResult();
     }
 }
