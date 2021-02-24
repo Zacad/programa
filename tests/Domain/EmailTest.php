@@ -7,7 +7,7 @@ namespace App\Tests\Domain;
 use App\Domain\Email;
 use App\Domain\IllegalArgumentException;
 
-class emailTest extends \PHPUnit\Framework\TestCase
+class EmailTest extends \PHPUnit\Framework\TestCase
 {
     public function testItCreatesValidEmail()
     {
@@ -39,6 +39,13 @@ class emailTest extends \PHPUnit\Framework\TestCase
         $email2 = new Email('adam.zojac@exmple.com');
 
         $this->assertFalse($email->isEqual($email2));
+    }
+
+    public function testItFailsCreateOnNull()
+    {
+        $this->expectException(\TypeError::class);
+
+        $email = new Email(null);
     }
 
 }

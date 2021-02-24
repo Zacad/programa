@@ -4,7 +4,50 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                {{ form(form) }}
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                <div class="col-12">
+                    {{ form_label(form.firstName) }}
+                    {{ form_widget(form.firstName) }}
+                    <div class="invalid-feedback">
+                        Fill name
+                    </div>
+                </div>
+
+
+                <div class="col-12">
+                    {{ form_label(form.lastName) }}
+                    {{ form_widget(form.lastName) }}
+                    <div class="invalid-feedback">
+                        Fill last name
+                    </div>
+                </div>
+
+
+                <div class="col-12">
+                    {{ form_label(form.age) }}
+                    {{ form_widget(form.age) }}
+                    <div class="invalid-feedback">
+                        age must be between 18 and 99
+                    </div>
+                </div>
+
+
+                <div class="col-12">
+                    {{ form_label(form.email) }}
+                    {{ form_widget(form.email) }}
+                    <div class="invalid-feedback">
+                        Add valid email
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    {{ form_label(form.consent) }}
+                    {{ form_widget(form.consent) }}
+                </div>
+                <div class="col-12">
+                    {{ form_widget(form.submit) }}
+                </div>
+                {{ form_end(form) }}
 
                 <div class="errors">
                     {% for error in errors %}
@@ -22,4 +65,8 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('personFormValidation') }}
 {% endblock %}

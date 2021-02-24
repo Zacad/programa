@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Form;
 
-
 use App\Application\Command\SomePersonCommand;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -20,13 +19,30 @@ class PersonType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName', TextType::class)
-            ->add('lastName', TextType::class)
-            ->add('age', NumberType::class)
-            ->add('email', EmailType::class)
-            ->add('consent', CheckboxType::class)
-            ->add('submit', SubmitType::class)
-        ;
+            ->add('firstName', TextType::class, [
+                'required' => true,
+            ])
+            ->add('lastName', TextType::class, [
+                'required' => true
+            ])
+            ->add('age', NumberType::class, [
+                'required' => true,
+                'html5' => true,
+                'attr' => [
+                    'min' => '18',
+                    'max' => '99',
+                ],
+            ])
+            ->add('email', EmailType::class, [
+                'required' => true,
+                'attr' => [
+                    'pattern' => "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$",
+                ]
+            ])
+            ->add('consent', CheckboxType::class, [
+                'required' => true,
+            ])
+            ->add('submit', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -34,6 +50,9 @@ class PersonType extends AbstractType
         $resolver->setDefaults([
             // Configure your form options here
             'data_class' => SomePersonCommand::class,
+            'attr' => [
+                'class' => 'needs-validation',
+            ],
         ]);
     }
 }

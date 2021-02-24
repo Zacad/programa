@@ -29,7 +29,7 @@ class PersonController extends AbstractController
 
             try {
                 $personHandler->executeCommand($person);
-            } catch (IllegalArgumentException $e) {
+            } catch (IllegalArgumentException|\TypeError $e) {
                 $errors[] = $e->getMessage();
             }
 
