@@ -1,0 +1,5 @@
+services:
+  _defaults:
+    public: true
+
+  'test.App\Service\EmailCheckerServiceAdapter': '@App\Service\EmailCheckerServiceAdapter'
