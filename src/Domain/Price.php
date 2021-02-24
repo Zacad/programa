@@ -26,7 +26,7 @@ class Price
     public function __construct(BigDecimal $price, string $currency)
     {
         $this->price = $price;
-        $$this->setCurrency($currency);
+        $this->setCurrency($currency);
     }
 
     public function isEqual(Price $anotherPrice): bool

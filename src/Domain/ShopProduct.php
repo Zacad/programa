@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace App\Domain;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Domain\ShopProductRepositoryInterface;
+use App\Repository\ShopProductDoctrineRepository;
 
 /**
  * Class ShopProduct
- * @package App\Domain
- * @ORM\Entity(repositoryClass="ShopProductRepositoryInterface::class")
+ * @ORM\Entity(repositoryClass="App\Repository\ShopProductDoctrineRepository")
  */
 class ShopProduct
 {
@@ -52,5 +51,15 @@ class ShopProduct
         $this->description = $description;
         $this->price = $price;
         $this->availability = $availability;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 }

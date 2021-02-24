@@ -3,3 +3,4 @@ services:
     public: true
 
   'test.App\Service\EmailCheckerServiceAdapter': '@App\Service\EmailCheckerServiceAdapter'
+  test.App\Domain\ShopProductRepositoryInterface: '@App\Domain\ShopProductRepositoryInterface'
