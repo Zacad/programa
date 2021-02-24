@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
 
-namespace App\DTO;
+namespace App\Application\Command;
 
 
-class Person
+class SomePersonCommand
 {
     private $firstName;
     private $lastName;
