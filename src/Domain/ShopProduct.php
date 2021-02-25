@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ShopProductDoctrineRepository;
 
@@ -41,6 +43,12 @@ class ShopProduct
      */
     private bool $availability;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Domain\Category", inversedBy="products")
+     * @ORM\JoinTable(name="products_categories")
+     */
+    private Collection $categories;
+
     public function __construct(
         string $name,
         string $description,
@@ -51,6 +59,7 @@ class ShopProduct
         $this->description = $description;
         $this->price = $price;
         $this->availability = $availability;
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): int
@@ -58,8 +67,13 @@ class ShopProduct
         return $this->id;
     }
 
-    public function getName(): string
+    public function name(): string
     {
         return $this->name;
+    }
+
+    public function addCategory(Category $category)
+    {
+        $this->categories->add($category);
     }
 }

@@ -43,7 +43,7 @@ class ShopProductDoctrineRepositoryTest extends \Symfony\Bundle\FrameworkBundle\
         $newProduct = $repository->find($product->getId());
 
         $this->assertInstanceOf(ShopProductDoctrineRepository::class, $repository);
-        $this->assertSame($product->getName(), $newProduct->getName());
+        $this->assertSame($product->name(), $newProduct->name());
         $this->assertSame($product->getId(), $newProduct->getId());
     }
 
@@ -72,7 +72,7 @@ class ShopProductDoctrineRepositoryTest extends \Symfony\Bundle\FrameworkBundle\
     public function testItFindsUnavailableProducts()
     {
         /**
-         * @var $repository ShopProductDoctrineRepository
+         * @var ShopProductDoctrineRepository $repository
          */
         $repository = $this->entityManager->getRepository(ShopProduct::class);
 
@@ -89,13 +89,13 @@ class ShopProductDoctrineRepositoryTest extends \Symfony\Bundle\FrameworkBundle\
         $unavailableProducts = $repository->findUnavailableProducts();
 
         $this->assertEquals(1, count($unavailableProducts));
-        $this->assertEquals('buty2', $unavailableProducts[0]->getName());
+        $this->assertEquals('buty2', $unavailableProducts[0]->name());
     }
 
     public function testItFindsProductsByPartOfName()
     {
         /**
-         * @var $repository ShopProductDoctrineRepository
+         * @var ShopProductDoctrineRepository $repository
          */
         $repository = $this->entityManager->getRepository(ShopProduct::class);
 
